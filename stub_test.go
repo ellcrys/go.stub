@@ -11,9 +11,11 @@ type myBlockcode struct {
 }
 
 func (b *myBlockcode) OnInit() {
-	On("add", func() (interface{}, error) {
-		return 2 + 2, nil
-	})
+	On("add", b.add)
+}
+
+func (b *myBlockcode) add() (interface{}, error) {
+	return 2 + 2, nil
 }
 
 var _ = g.Describe("Go.Stub", func() {
