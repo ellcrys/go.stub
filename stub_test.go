@@ -1,6 +1,8 @@
 package stub
 
 import (
+	"time"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -46,16 +48,43 @@ var _ = Describe("Go.Stub", func() {
 		It("should set default block code on default stub", func() {
 			bc := new(myBlockcode)
 			Expect(defaultStub.blockcode).To(BeNil())
-			Run(bc)
+			go Run(bc)
+			time.Sleep(100 * time.Millisecond)
+			close(defaultStub.wait)
 			Expect(defaultStub.blockcode).ToNot(BeNil())
 		})
 
-		It("should set default block code on default stub", func() {
-			bc := new(myBlockcode)
-			Expect(defaultStub.blockcode).To(BeNil())
-			Run(bc)
-			Expect(defaultStub.blockcode).ToNot(BeNil())
-			<-defaultStub.wait
+		// It("should set default block code on default stub", func() {
+		// 	bc := new(myBlockcode)
+		// 	Expect(defaultStub.blockcode).To(BeNil())
+		// 	Run(bc)
+		// 	Expect(defaultStub.blockcode).ToNot(BeNil())
+		// })
+	})
+
+	Describe(".getFunc", func() {
+
+		It("should return nil when function is not found", func() {
+			Expect(getFunc("unknown")).To(BeNil())
+		})
+
+		It("should successfully return the function", func() {
+			f := func() (interface{}, error) { return nil, nil }
+			On("func1", f)
+			Expect(getFunc("func1")).ToNot(BeNil())
+		})
+	})
+
+	Describe(".stopService", func() {
+		It("will close the wait channel", func() {
+			closed := make(chan bool)
+			go func() {
+				<-defaultStub.wait
+				closed <- true
+			}()
+			time.Sleep(50 * time.Millisecond)
+			stopService()
+			Expect(<-closed).To(BeTrue())
 		})
 	})
 })

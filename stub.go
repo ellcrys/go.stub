@@ -50,11 +50,16 @@ func Run(b Blockcode) {
 	if b == nil {
 		panic(fmt.Errorf("blockcode not initialized"))
 	}
+
 	defaultStub.blockcode = b
 
-	if err := serve(); err != nil {
-		panic(err)
-	}
+	go func() {
+		if err := serve(); err != nil {
+			panic(err)
+		}
+	}()
+
+	<-defaultStub.wait
 }
 
 // On registers a function
