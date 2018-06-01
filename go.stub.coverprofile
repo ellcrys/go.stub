@@ -1,0 +1,27 @@
+mode: atomic
+github.com/ellcrys/go.stub/stub.go:15.14,20.2 4 5
+github.com/ellcrys/go.stub/stub.go:22.13,24.2 1 1
+github.com/ellcrys/go.stub/stub.go:46.23,48.14 1 2
+github.com/ellcrys/go.stub/stub.go:51.2,53.32 2 1
+github.com/ellcrys/go.stub/stub.go:48.14,49.49 1 1
+github.com/ellcrys/go.stub/stub.go:53.32,54.13 1 0
+github.com/ellcrys/go.stub/stub.go:59.39,61.14 1 2
+github.com/ellcrys/go.stub/stub.go:65.2,67.29 3 1
+github.com/ellcrys/go.stub/stub.go:61.14,63.3 1 1
+github.com/ellcrys/go.stub/stub.go:70.41,74.2 3 0
+github.com/ellcrys/go.stub/stub.go:76.14,78.2 1 4
+github.com/ellcrys/go.stub/stub.go:80.20,84.16 3 1
+github.com/ellcrys/go.stub/stub.go:88.2,88.51 1 1
+github.com/ellcrys/go.stub/stub.go:94.2,94.12 1 1
+github.com/ellcrys/go.stub/stub.go:99.2,99.12 1 1
+github.com/ellcrys/go.stub/stub.go:84.16,86.3 1 0
+github.com/ellcrys/go.stub/stub.go:88.51,89.43 1 0
+github.com/ellcrys/go.stub/stub.go:89.43,91.4 1 0
+github.com/ellcrys/go.stub/stub.go:94.12,97.3 2 1
+github.com/ellcrys/go.stub/stub.go:102.20,103.24 1 0
+github.com/ellcrys/go.stub/stub.go:106.2,106.25 1 0
+github.com/ellcrys/go.stub/stub.go:103.24,105.3 1 0
+github.com/ellcrys/go.stub/service.go:30.38,34.2 3 1
+github.com/ellcrys/go.stub/service.go:37.45,40.18 2 0
+github.com/ellcrys/go.stub/service.go:47.2,50.3 1 0
+github.com/ellcrys/go.stub/service.go:40.18,45.3 1 0
