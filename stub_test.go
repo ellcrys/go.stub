@@ -3,7 +3,7 @@ package stub
 import (
 	"time"
 
-	. "github.com/onsi/ginkgo"
+	g "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
@@ -16,20 +16,20 @@ func (b *myBlockcode) OnInit() {
 	})
 }
 
-var _ = Describe("Go.Stub", func() {
+var _ = g.Describe("Go.Stub", func() {
 
-	AfterEach(func() {
+	g.AfterEach(func() {
 		reset()
 	})
 
-	Describe(".On", func() {
+	g.Describe(".On", func() {
 
-		It("should not add func if nil is passed as a function", func() {
+		g.It("should not add func if nil is passed as a function", func() {
 			On("func1", nil)
 			Expect(defaultStub.funcs).ToNot(HaveKey("func1"))
 		})
 
-		It("should successfully add function", func() {
+		g.It("should successfully add function", func() {
 			f := func() (interface{}, error) { return nil, nil }
 			On("func1", f)
 			Expect(defaultStub.funcs).To(HaveKey("func1"))
@@ -37,15 +37,15 @@ var _ = Describe("Go.Stub", func() {
 		})
 	})
 
-	Describe(".Run", func() {
+	g.Describe(".Run", func() {
 
-		It("should return panic when nil is pass", func() {
+		g.It("should return panic when nil is pass", func() {
 			Expect(func() {
 				Run(nil)
 			}).To(Panic())
 		})
 
-		It("should set default block code on default stub", func() {
+		g.It("should set default block code on default stub", func() {
 			bc := new(myBlockcode)
 			Expect(defaultStub.blockcode).To(BeNil())
 			go Run(bc)
@@ -54,7 +54,7 @@ var _ = Describe("Go.Stub", func() {
 			Expect(defaultStub.blockcode).ToNot(BeNil())
 		})
 
-		// It("should set default block code on default stub", func() {
+		// g.It("should set default block code on default stub", func() {
 		// 	bc := new(myBlockcode)
 		// 	Expect(defaultStub.blockcode).To(BeNil())
 		// 	Run(bc)
@@ -62,21 +62,21 @@ var _ = Describe("Go.Stub", func() {
 		// })
 	})
 
-	Describe(".getFunc", func() {
+	g.Describe(".getFunc", func() {
 
-		It("should return nil when function is not found", func() {
+		g.It("should return nil when function is not found", func() {
 			Expect(getFunc("unknown")).To(BeNil())
 		})
 
-		It("should successfully return the function", func() {
+		g.It("should successfully return the function", func() {
 			f := func() (interface{}, error) { return nil, nil }
 			On("func1", f)
 			Expect(getFunc("func1")).ToNot(BeNil())
 		})
 	})
 
-	Describe(".stopService", func() {
-		It("will close the wait channel", func() {
+	g.Describe(".stopService", func() {
+		g.It("will close the wait channel", func() {
 			closed := make(chan bool)
 			go func() {
 				<-defaultStub.wait

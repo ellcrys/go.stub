@@ -2,17 +2,33 @@ package stub
 
 import "fmt"
 
+// Ctx holds information about a function invocation.
+// It is updated on each function invocation
+var Ctx *Context
+
+// BlockInfo represents information about the current block
+type BlockInfo struct {
+	BlockNumber uint64
+}
+
 // Tx represents details of an incoming transaction
 type Tx struct {
 	ID    string `json:"txId"`
 	Value string `json:"value"`
 }
 
+// Context represents the context of a transaction
+type Context struct {
+	Tx        *Tx
+	BlockInfo *BlockInfo
+}
+
 // Args represents the parameters of a function call
 type Args struct {
-	Func    string                 `json:"func"`
-	Payload map[string]interface{} `json:"payload"`
-	Tx      *Tx                    `json:"tx"`
+	Func      string                 `json:"func"`
+	Payload   map[string]interface{} `json:"payload"`
+	Tx        *Tx                    `json:"tx"`
+	BlockInfo *BlockInfo             `json:"blockInfo"`
 }
 
 // Result represents the output of a function call
@@ -38,6 +54,11 @@ func newService(stub *stub) *Service {
 // - Get the function to be invoked.
 // - Call the function
 func (s *Service) Invoke(args Args) *Result {
+
+	Ctx = &Context{
+		Tx:        args.Tx,
+		BlockInfo: args.BlockInfo,
+	}
 
 	s.stub.blockcode.OnInit()
 

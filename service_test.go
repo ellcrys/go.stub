@@ -3,7 +3,7 @@ package stub
 import (
 	"fmt"
 
-	. "github.com/onsi/ginkgo"
+	g "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
@@ -31,14 +31,14 @@ func (b *myBlockcode4) OnInit() {
 	})
 }
 
-var _ = Describe("Service", func() {
+var _ = g.Describe("Service", func() {
 
-	AfterEach(func() {
+	g.AfterEach(func() {
 		reset()
 	})
 
-	Describe(".Invoke", func() {
-		It("should return err if function does not exist", func() {
+	g.Describe(".Invoke", func() {
+		g.It("should return err if function does not exist", func() {
 			bc := new(myBlockcode2)
 			defaultStub.blockcode = bc
 			service := newService(defaultStub)
@@ -50,7 +50,7 @@ var _ = Describe("Service", func() {
 			Expect(res.Body).To(Equal("unknown function `unknown`"))
 		})
 
-		It("should return error returned by the invoked function", func() {
+		g.It("should return error returned by the invoked function", func() {
 			bc := new(myBlockcode3)
 			defaultStub.blockcode = bc
 			service := newService(defaultStub)
@@ -62,7 +62,7 @@ var _ = Describe("Service", func() {
 			Expect(res.Body).To(Equal("an error"))
 		})
 
-		It("should return success value returned by the invoked function", func() {
+		g.It("should return success value returned by the invoked function", func() {
 			bc := new(myBlockcode4)
 			defaultStub.blockcode = bc
 			service := newService(defaultStub)
