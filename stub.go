@@ -2,6 +2,7 @@ package stub
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"sync"
 
@@ -94,6 +95,7 @@ func serve() error {
 
 	server.On("connection", func(so socketio.Socket) {
 		so.On("invoke", func(args Args) *Result {
+			log.Println("Received new invoke request")
 			return service.Invoke(args)
 		})
 	})
@@ -101,6 +103,7 @@ func serve() error {
 	go func() {
 		mux := http.NewServeMux()
 		mux.Handle("/", server)
+		log.Println("Stub server now running at :4000")
 		http.ListenAndServe(":4000", mux)
 	}()
 
