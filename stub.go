@@ -103,8 +103,8 @@ func serve() error {
 	go func() {
 		mux := http.NewServeMux()
 		mux.Handle("/", server)
-		log.Println("Stub server now running at :4000")
-		http.ListenAndServe(":4000", mux)
+		log.Println("Stub server now running at :9900")
+		http.ListenAndServe(":9900", mux)
 	}()
 
 	return nil
