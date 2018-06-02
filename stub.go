@@ -11,6 +11,8 @@ import (
 
 var (
 	defaultStub *stub
+	room        = "_"
+	server      *socketio.Server
 )
 
 func _init() {
@@ -87,17 +89,25 @@ func reset() {
 
 func serve() error {
 
+	var err error
 	service := newService(defaultStub)
-	server, err := socketio.NewServer(nil)
+	server, err = socketio.NewServer(nil)
 	if err != nil {
 		return fmt.Errorf("failed to create server")
 	}
 
 	server.On("connection", func(so socketio.Socket) {
-		so.On("invoke", func(args Args) *Result {
-			log.Println("Received new invoke request")
-			return service.Invoke(args)
-		})
+		so.Join(room)
+		log.Println("Connection established")
+	})
+
+	server.On("invoke", func(args Args) *Result {
+		log.Println("Received new invoke request")
+		return service.Invoke(args)
+	})
+
+	server.On("echo", func(args Args) *Args {
+		return &args
 	})
 
 	go func() {
